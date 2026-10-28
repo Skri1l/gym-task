@@ -1,5 +1,6 @@
 package com.Skr1l.trainee;
 
+import com.Skr1l.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trainee {
+public class Trainee extends User {
 
   private LocalDate dateOfBirth;
 
