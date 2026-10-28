@@ -2,14 +2,13 @@ package com.Skr1l.trainee.dao;
 
 import com.Skr1l.trainee.Trainee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Component
+@Repository
 public class TraineeDao {
 
   private Map<Long, Trainee> traineeStorage;
@@ -54,6 +53,7 @@ public class TraineeDao {
   }
 
   public boolean existsByUsername(String username) {
-
+    return traineeStorage.values().stream()
+      .anyMatch(trainee -> username.equals(trainee.getUsername()));
   }
 }

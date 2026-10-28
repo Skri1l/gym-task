@@ -2,6 +2,7 @@ package com.Skr1l.trainee.service;
 
 import com.Skr1l.trainee.Trainee;
 import com.Skr1l.trainee.dao.TraineeDao;
+import com.Skr1l.user.configuration.UsernameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -14,9 +15,16 @@ public class TraineeServiceImpl implements TraineeService {
 
   private TraineeDao traineeDao;
 
+  private UsernameGenerator usernameGenerator;
+
   @Autowired
   public void setTraineeDao(TraineeDao traineeDao) {
     this.traineeDao = traineeDao;
+  }
+
+  @Autowired
+  public void setUsernameGenerator(UsernameGenerator usernameGenerator) {
+    this.usernameGenerator = usernameGenerator;
   }
 
   @Override
@@ -30,6 +38,13 @@ public class TraineeServiceImpl implements TraineeService {
     traineeObj.setActive(trainee.isActive());
     traineeObj.setDateOfBirth(trainee.getDateOfBirth());
     traineeObj.setAddress(trainee.getAddress());
+
+    traineeObj.setUsername(
+      usernameGenerator.generate(
+        traineeObj.getFirstName(),
+        traineeObj.getLastName()
+      )
+    );
 
     return traineeDao.addTrainee(traineeObj);
   }
