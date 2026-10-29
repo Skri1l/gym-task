@@ -53,7 +53,7 @@ public class GymFacade {
     return trainingService.createTraining(training);
   }
 
-  public Training selectTraining(Long userId) {
-    return trainingService.selectTraining(userId);
+  public Training selectTraining(Long trainingId) {
+    return trainingService.selectTraining(trainingId);
   }
 }

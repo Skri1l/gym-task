@@ -45,7 +45,7 @@ public class TrainingServiceImpl implements TrainingService {
       throw new RuntimeException("Trainee does not exist");
     }
 
-    if (trainerDao.getTrainerByUserId(training.getTrainerId()) != null) {
+    if (trainerDao.getTrainerByUserId(training.getTrainerId()) == null) {
       throw new RuntimeException("Trainer does not exist");
     }
     trainingObj.setTraineeId(training.getTraineeId());
