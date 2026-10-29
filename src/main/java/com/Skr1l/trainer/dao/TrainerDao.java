@@ -48,4 +48,13 @@ public class TrainerDao {
     return trainerStorage.values().stream()
       .anyMatch(trainer -> username.equals(trainer.getUsername()));
   }
+
+  public void initializeIdSequence() {
+    long maxId = trainerStorage.keySet().stream()
+      .mapToLong(Long::longValue)
+      .max()
+      .orElse(0L);
+
+    idGeneration.set(maxId);
+  }
 }

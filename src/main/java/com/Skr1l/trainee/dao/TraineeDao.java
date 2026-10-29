@@ -51,4 +51,13 @@ public class TraineeDao {
     return traineeStorage.values().stream()
       .anyMatch(trainee -> username.equals(trainee.getUsername()));
   }
+
+  public void initializeIdSequence() {
+    long maxId = traineeStorage.keySet().stream()
+      .mapToLong(Long::longValue)
+      .max()
+      .orElse(0L);
+
+    idGeneration.set(maxId);
+  }
 }

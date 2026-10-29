@@ -1,8 +1,11 @@
 package com.Skr1l;
 
 import com.Skr1l.trainee.Trainee;
+import com.Skr1l.trainee.dao.TraineeDao;
 import com.Skr1l.trainer.Trainer;
+import com.Skr1l.trainer.dao.TrainerDao;
 import com.Skr1l.training.Training;
+import com.Skr1l.training.dao.TrainingDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.annotation.PostConstruct;
@@ -23,6 +26,24 @@ public class DataLoader {
   private Map<Long, Trainer> trainerStorage;
   private Map<Long, Training> trainingStorage;
   private Resource dataFile;
+  private TraineeDao traineeDao;
+  private TrainerDao trainerDao;
+  private TrainingDao trainingDao;
+
+  @Autowired
+  public void setTraineeDao(TraineeDao traineeDao) {
+    this.traineeDao = traineeDao;
+  }
+
+  @Autowired
+  public void setTrainerDao(TrainerDao trainerDao) {
+    this.trainerDao = trainerDao;
+  }
+
+  @Autowired
+  public void setTrainingDao(TrainingDao trainingDao) {
+    this.trainingDao = trainingDao;
+  }
 
   @Autowired
   public void setTraineeStorage(
@@ -69,5 +90,10 @@ public class DataLoader {
     } catch (IOException e) {
       throw new IllegalStateException("Failed", e);
     }
+
+    traineeDao.initializeIdSequence();
+    trainerDao.initializeIdSequence();
+    trainingDao.initializeIdSequence();
   }
+
 }

@@ -29,4 +29,13 @@ public class TrainingDao {
   public Training getTrainingById(Long trainingId) {
     return trainingStorage.get(trainingId);
   }
+
+  public void initializeIdSequence() {
+    long maxId = trainingStorage.keySet().stream()
+      .mapToLong(Long::longValue)
+      .max()
+      .orElse(0L);
+
+    idGeneration.set(maxId);
+  }
 }
