@@ -13,7 +13,7 @@ public class TrainerDao {
 
   private Map<Long, Trainer> trainerStorage;
 
-  private final AtomicLong idSequence = new AtomicLong(0);
+  private final AtomicLong idGeneration = new AtomicLong(0);
 
   @Autowired
   public void setTrainerStorage(Map<Long, Trainer> trainerStorage) {
@@ -21,9 +21,10 @@ public class TrainerDao {
   }
 
   public Long addTrainer(Trainer trainer) {
-    Long userId = idSequence.incrementAndGet();
+    Long userId = idGeneration.incrementAndGet();
     trainer.setUserId(userId);
     trainerStorage.put(userId, trainer);
+
     return userId;
   }
 
