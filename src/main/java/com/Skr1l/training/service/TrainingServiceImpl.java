@@ -1,5 +1,7 @@
 package com.Skr1l.training.service;
 
+import com.Skr1l.trainee.dao.TraineeDao;
+import com.Skr1l.trainer.dao.TrainerDao;
 import com.Skr1l.training.Training;
 import com.Skr1l.training.dao.TrainingDao;
 import org.slf4j.Logger;
@@ -14,17 +16,38 @@ public class TrainingServiceImpl implements TrainingService {
 
   private TrainingDao trainingDao;
 
+  private TraineeDao traineeDao;
+
+  private TrainerDao trainerDao;
+
   @Autowired
   public void setTrainingDao(TrainingDao trainingDao) {
     this.trainingDao = trainingDao;
   }
 
+  @Autowired
+  public void setTraineeDao(TraineeDao traineeDao) {
+    this.traineeDao = traineeDao;
+  }
+
+  @Autowired
+  public void setTrainerDao(TrainerDao trainerDao) {
+    this.trainerDao = trainerDao;
+  }
+
   @Override
-  public Long createTrainer(Training training) {
-    log.info("Starting createTrainer");
+  public Long createTraining(Training training) {
+    log.info("Starting createTraining");
 
     Training trainingObj =  new Training();
 
+    if (traineeDao.getTraineeByUserId(training.getTraineeId()) == null) {
+      throw new RuntimeException("Trainee does not exist");
+    }
+
+    if (trainerDao.getTrainerByUserId(training.getTrainerId()) != null) {
+      throw new RuntimeException("Trainer does not exist");
+    }
     trainingObj.setTraineeId(training.getTraineeId());
     trainingObj.setTrainerId(training.getTrainerId());
     trainingObj.setTrainingName(training.getTrainingName());
@@ -37,7 +60,7 @@ public class TrainingServiceImpl implements TrainingService {
 
   @Override
   public Training selectTraining(Long trainingId) {
-    log.info("Starting selectTrainer");
+    log.info("Starting selectTraining");
 
     return trainingDao.getTrainingById(trainingId);
   }
