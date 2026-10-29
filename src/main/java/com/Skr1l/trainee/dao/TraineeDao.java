@@ -29,11 +29,6 @@ public class TraineeDao {
   }
 
   public Long addTrainee(Trainee trainee) {
-
-    if (getTraineeByUserId(trainee.getUserId()) != null) {
-      throw new RuntimeException("Trainee already exists");
-    }
-
     Long userId = idGeneration.incrementAndGet();
     trainee.setUserId(userId);
     traineeStorage.put(userId, trainee);

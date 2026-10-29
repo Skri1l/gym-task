@@ -2,6 +2,7 @@ package com.Skr1l.trainee.service;
 
 import com.Skr1l.trainee.Trainee;
 import com.Skr1l.trainee.dao.TraineeDao;
+import com.Skr1l.user.configuration.PasswordGenerator;
 import com.Skr1l.user.configuration.UsernameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class TraineeServiceImpl implements TraineeService {
 
   private UsernameGenerator usernameGenerator;
 
+  private PasswordGenerator passwordGenerator;
+
   @Autowired
   public void setTraineeDao(TraineeDao traineeDao) {
     this.traineeDao = traineeDao;
@@ -25,6 +28,11 @@ public class TraineeServiceImpl implements TraineeService {
   @Autowired
   public void setUsernameGenerator(UsernameGenerator usernameGenerator) {
     this.usernameGenerator = usernameGenerator;
+  }
+
+  @Autowired
+  public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
+    this.passwordGenerator = passwordGenerator;
   }
 
   @Override
@@ -39,12 +47,10 @@ public class TraineeServiceImpl implements TraineeService {
     traineeObj.setDateOfBirth(trainee.getDateOfBirth());
     traineeObj.setAddress(trainee.getAddress());
 
-    traineeObj.setUsername(
-      usernameGenerator.generate(
-        traineeObj.getFirstName(),
-        traineeObj.getLastName()
-      )
-    );
+    traineeObj.setUsername(usernameGenerator.generate(
+      traineeObj.getFirstName(), traineeObj.getLastName()));
+
+    traineeObj.setPassword(passwordGenerator.generatePassword());
 
     return traineeDao.addTrainee(traineeObj);
   }
