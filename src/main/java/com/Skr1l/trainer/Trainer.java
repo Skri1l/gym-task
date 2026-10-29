@@ -1,5 +1,6 @@
 package com.Skr1l.trainer;
 
+import com.Skr1l.training.TrainingType;
 import com.Skr1l.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Trainer extends User {
 
-  private String specialization;
+  private TrainingType specialization;
 
   private Long userId;
 }
