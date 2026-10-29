@@ -1,0 +1,40 @@
+{
+  "trainees": [
+    {
+      "userId": 1,
+      "firstName": "John",
+      "lastName": "Smith",
+      "username": "John.Smith",
+      "password": "Ab3Def7Hk9",
+      "active": true,
+      "dateOfBirth": "2000-05-15",
+      "address": "Vilnius"
+    }
+  ],
+  "trainers": [
+    {
+      "userId": 1,
+      "firstName": "Anna",
+      "lastName": "Brown",
+      "username": "Anna.Brown",
+      "password": "Cd4Ghj8Lm2",
+      "active": true,
+      "specialization": {
+        "trainingTypeName": "Strength"
+      }
+    }
+  ],
+  "trainings": [
+    {
+      "trainingId": 1,
+      "traineeId": 1,
+      "trainerId": 1,
+      "trainingName": "Strength basics",
+      "trainingType": {
+        "trainingTypeName": "Strength"
+      },
+      "trainingDate": "2026-10-29",
+      "trainingDuration": 60
+    }
+  ]
+}
